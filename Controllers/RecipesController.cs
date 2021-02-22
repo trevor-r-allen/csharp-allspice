@@ -10,9 +10,12 @@ namespace csharp_allspice.Controllers
   public class RecipesController
   {
     private readonly RecipesService _recipesService;
-    public RecipesController(RecipesService recipesService)
+    private readonly IngredientsService _ingredientsService;
+    public RecipesController(RecipesService recipesService, IngredientsService ingredientsService)
     {
       _recipesService = recipesService;
+      _ingredientsService = ingredientsService;
+
     }
 
     [HttpGet]
@@ -39,6 +42,20 @@ namespace csharp_allspice.Controllers
       catch (System.Exception err)
       {
 
+        return BadRequest(err.Message);
+      }
+    }
+
+    [HttpGet("{id}/ingredients")]
+    public ActionResult<IEnumerable<Ingredient>> GetIngredients(int id)
+    {
+      try
+      {
+        IEnumerable<Ingredient> data = _ingredientsService.GetByRecipeId(id);
+        return Ok(data);
+      }
+      catch (System.Exception err)
+      {
         return BadRequest(err.Message);
       }
     }
