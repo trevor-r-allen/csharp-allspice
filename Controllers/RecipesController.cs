@@ -7,7 +7,7 @@ namespace csharp_allspice.Controllers
 {
   [ApiController]
   [Route("api/[controller]")]
-  public class RecipesController
+  public class RecipesController : ControllerBase
   {
     private readonly RecipesService _recipesService;
     private readonly IngredientsService _ingredientsService;
